@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+	<h1 class="display-4">{{colegio.nombre}}</h1>
+	<p class="lead">{{colegio.comuna}}</p>
+	<hr class="my-4">
+	<p>{{colegio.direccion}}</p>
+	<p>¿Desea borrar el colegio?</p>
+	<form action="" method="POST">
+		{% csrf_token %}
+		<button type="submit" class="btn btn-primary">Confirmar borrado</button>
+	</form>
+</div>
+
+{% endblock %}

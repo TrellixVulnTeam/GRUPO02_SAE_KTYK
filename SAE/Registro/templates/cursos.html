@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ <h1>Curso {{curso.id}} </h1>
+ <div class="container">
+ 	<div class="row mt-5 justify-content-center">
+ 		<div class="card" style="width: 18rem;">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{curso.nombrecurso}}</h5>
+ 				<p class="card-text">{{curso.cupos}}</p>
+ 				<p class="card-text">{{curso.profesorjefe}}</p>
+ 			</div>
+ 		</div>		
+ 	</div>
+ 	<a class="btn btn-primary btn-lg" href="/colegio/{{curso.id}}/update" role="button">Actualizar</a>
+	<a class="btn btn-primary btn-lg" href="/colegio/{{curso.id}}/delete" role="button">Borrar</a>
+ </div>
+{% endblock %}

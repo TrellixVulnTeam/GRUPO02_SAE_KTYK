@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="display-4">Cursos del Colegio {{colegio.nombre}}</h1>
+<p class="lead">{{colegio.comuna}}</p>
+<p>{{colegio.direccion}}</p>
+<hr class="my-4">
+<div class="container">
+	<div class="row mt-5 justify-content-center">
+	{% for curso in cursos %}
+		{% ifequal curso.colegio.id colegio.id %}
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">{{curso.nombrecurso}}</h5>
+					<p class="card-text">{{curso.cupos}}</p>
+					<p class="card-text">{{curso.profesorjefe}}</p>
+					<a href="/colegio/{{colegio.id}}/{{curso.id}} " class="card-link">Ir</a>
+				</div>
+			</div>
+		{% endifequal %}
+	{% endfor %}
+	</div>
+<a class="btn btn-primary btn-lg" href="/colegio/{{colegio.id}}/create" role="button">Agregar Cursos al Colegio</a>
+<a class="btn btn-primary btn-lg" href="/colegio/{{colegio.id}}/update" role="button">Actualizar Colegio</a>
+<a class="btn btn-primary btn-lg" href="/colegio/{{colegio.id}}/delete" role="button">Borrar Colegio</a>
+{% endblock %}
