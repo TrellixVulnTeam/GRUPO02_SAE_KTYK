@@ -5,6 +5,10 @@ from Registro import views
 urlpatterns = [
 	url(r'^$',views.HomePageView.as_view(),name="index"),
 	url(r'Colegios/',views.HomeColegiosView.as_view(),name="Colegios"),
+	url(r'Alumnos/',views.HomeAlumnosView.as_view(),name="Alumnos"),
+	re_path(r'^alumno/create/$', views.AlumnoCreate.as_view(success_url='/Alumnos/'), name='alumno_create'),
+	re_path(r'^alumno/(?P<pk>\d+)/update/$', views.AlumnoUpdate.as_view(success_url='/Alumnos/'), name='alumno_update'),
+	re_path(r'^alumno/(?P<pk>\d+)/delete/$', views.AlumnoDelete.as_view(success_url='/Alumnos/'),name='alumno_delete'),
 	re_path(r'^colegio/(?P<id>\d+)/$',views.DetalleColegioView.as_view(),name="detalle"),
 	path('accounts/',include('accounts.urls')),
 	path('accounts/',include('django.contrib.auth.urls')),
