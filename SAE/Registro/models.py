@@ -44,6 +44,7 @@ class Alumno(models.Model):
 
 class Asignatura(models.Model):
 	nombre_asignatura=models.CharField(max_length=20)
+	nivel=models.CharField(max_length=20)
 	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
 	
 	def __str__(self):
