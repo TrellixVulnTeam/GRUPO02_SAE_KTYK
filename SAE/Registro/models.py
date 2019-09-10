@@ -1,5 +1,5 @@
 from django.db import models
-#from django.db.models.signal import post_save
+from django.db.models.signals import post_save
 
 class Colegio(models.Model):
 	nombre=models.CharField(max_length=20)
@@ -10,21 +10,25 @@ class Colegio(models.Model):
 	def __str__(self):
 		return "{}".format(self.nombre)
 
-class Prosefor(models.Model):
+class Profesor(models.Model):
 	rut=models.CharField(max_length=10)
 	nombre=models.CharField(max_length=20)
 	apellido=models.CharField(max_length=20)
 	fechanacimiento=models.DateTimeField()
-	profesor=models.Manager()
+	profesores=models.Manager()
 
 	def __str__(self):
 		return "{}".format(self.nombre)
 
+def crear_profesor(sender,instance,**kwargs):
+	print(instance.rut)
+
+post_save.connect(crear_profesor,sender=Profesor)
 
 class Curso(models.Model):
 	nombrecurso=models.CharField(max_length=20)
 	cupos=models.PositiveIntegerField()
-	profesorjefe=models.ForeignKey(Prosefor,on_delete=models.CASCADE)
+	profesorjefe=models.ForeignKey(Profesor,on_delete=models.CASCADE)
 	colegio= models.ForeignKey(Colegio,on_delete=models.CASCADE)
 	cursos=models.Manager()
 

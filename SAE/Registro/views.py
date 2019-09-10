@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import Colegio,Curso,Alumno
+from .models import Colegio,Curso,Alumno, Profesor
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -37,6 +37,21 @@ class AlumnoDelete(DeleteView):
 	template_name = './alumno_confirm_delete.html'
 	success_url = reverse_lazy('Alumnos')
 
+#Clases Profesor
+class ProfesorCreate(CreateView):
+	model = Profesor
+	template_name = './alumno_form.html'
+	fields = '__all__'
+
+class ProfesorUpdate(UpdateView):
+	model = Profesor
+	template_name = './alumno_form.html'
+	fields = '__all__'
+
+class ProfesorDelete(DeleteView):
+	model = Profesor
+	template_name = './profesor_confirm_delete.html'
+	success_url = reverse_lazy('Profesor')
 
 #index
 class HomePageView(TemplateView):
@@ -53,6 +68,11 @@ class HomeAlumnosView(LoginRequiredMixin, TemplateView):
 	def get(self,request,**kwargs):
 		return render(request,'Alumnos.html',{'alumno':Alumno.alumno.all()} )
 
+#Vista Profesores
+class HomeProfesoresView(LoginRequiredMixin, TemplateView):
+	def get(self,request,**kwargs):
+		return render(request,'Profesores.html',{'profesor':Profesor.profesores.all()} )
+
 
 
 #Detalles del colegio / Vista de Cursos de colegio
@@ -66,6 +86,12 @@ class DetalleCursoView(LoginRequiredMixin,TemplateView):
 	def get(self,request,**kwargs):
 		nombre=kwargs["pk_curso"]
 		return render(request,'curso.html',{'curso': Curso.cursos.get(id=nombre)})
+
+##Detalles del Profesor
+class DetalleProfesorView(LoginRequiredMixin,TemplateView):
+	def get(self,request,**kwargs):
+		nombre=kwargs["pk_profesor"]
+		return render(request,'detalleprofesor.html',{'profesor': Profesor.profesores.get(id=nombre)})
 
 ##Clases Cursos
 class CursoCreate(LoginRequiredMixin,CreateView):
