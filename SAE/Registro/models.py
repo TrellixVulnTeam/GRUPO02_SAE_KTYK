@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 class Colegio(models.Model):
@@ -21,14 +22,16 @@ class Profesor(models.Model):
 		return "{}".format(self.nombre)
 
 def crear_profesor(sender,instance,**kwargs):
-	print(instance.rut)
+	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+	user.permisos=1
+	user.save()
 
 post_save.connect(crear_profesor,sender=Profesor)
 
 class Curso(models.Model):
 	nombrecurso=models.CharField(max_length=20)
 	cupos=models.PositiveIntegerField()
-	profesorjefe=models.ForeignKey(Profesor,on_delete=models.CASCADE)
+	#profesorjefe=models.ForeignKey(Profesor,on_delete=models.CASCADE)
 	colegio= models.ForeignKey(Colegio,on_delete=models.CASCADE)
 	cursos=models.Manager()
 
@@ -45,6 +48,13 @@ class Alumno(models.Model):
 
 	def __str__(self):
 		return "{}".format(self.rut)
+
+def crear_alumno(sender,instance,**kwargs):
+	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+	user.permisos=1
+	user.save()
+
+post_save.connect(crear_alumno,sender=Alumno)
 
 class Asignatura(models.Model):
 	nombre_asignatura=models.CharField(max_length=20)
