@@ -5,6 +5,7 @@
  <div class="container">
  	<div class="row mt-5 justify-content-center">
  {% for colegio in colegios %}
+ 	{% ifequal user.last_name colegio.id %}
  		<div class="card" style="width: 18rem;">
  			<div class="card-body">
  				<h5 class="card-title">{{colegio.nombre}}</h5>
@@ -13,6 +14,7 @@
  				<a href="/colegio/{{colegio.id}} " class="card-link">Ir</a>
  			</div>
  		</div>
+ 	{% endifequal %}
  {% endfor %}		
  	</div>
  	<a class="btn btn-primary btn-lg" href="/colegio/create/" role="button">Agregar Colegio</a>

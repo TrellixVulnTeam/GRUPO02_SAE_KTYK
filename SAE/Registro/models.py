@@ -67,15 +67,22 @@ class Profesor(models.Model):
 	sexo = models.PositiveIntegerField()
 	asignaturas = models.ForeignKey(Asignatura,on_delete=models.CASCADE)
 	responsabilidad = models.BooleanField()
+	colegio_pertenece = models.ForeignKey(Colegio,on_delete=models.CASCADE)
 	profesores=models.Manager()
 
 	def __str__(self):
 		return "{}".format(self.nombre)
 
 def crear_profesor(sender,instance,**kwargs):
-	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
-	user.first_name=1
-	user.save()
+	if sender.responsabilidad== True:
+		user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+		user.first_name=0
+		user.save()
+	else:
+		user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+		user.first_name=1
+		user.save()
+
 
 post_save.connect(crear_profesor,sender=Profesor)
 
