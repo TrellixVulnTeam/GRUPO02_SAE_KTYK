@@ -85,7 +85,7 @@ class DetalleColegioView(LoginRequiredMixin,TemplateView):
 class DetalleCursoView(LoginRequiredMixin,TemplateView):
 	def get(self,request,**kwargs):
 		nombre=kwargs["pk_curso"]
-		return render(request,'curso.html',{'curso': Curso.cursos.get(id=nombre)})
+		return render(request,'Alumnos.html',{'alumno': Alumno.alumno.all(), 'cursos':Curso.cursos.get(id=nombre)})
 
 ##Detalles del Profesor
 class DetalleProfesorView(LoginRequiredMixin,TemplateView):

@@ -5,6 +5,7 @@
  <div class="container">
  	<div class="row mt-5 justify-content-center">
  {% for alumnos in alumno %}
+ 	{% ifequal alumnos.curso.id cursos.id %}
  		<div class="card" style="width: 18rem;">
  			<div class="card-body">
  				<h5 class="card-title">{{alumnos.rut}}</h5>
@@ -13,6 +14,7 @@
  				<a href="/alumno/{{alumno.id}} " class="card-link">Ir</a>
  			</div>
  		</div>
+ 		{% endifequal %}
  {% endfor %}		
  	</div>
  	<a class="btn btn-primary btn-lg" href="/alumno/create/" role="button">Agregar Alumno</a>

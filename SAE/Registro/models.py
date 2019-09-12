@@ -11,27 +11,16 @@ class Colegio(models.Model):
 	def __str__(self):
 		return "{}".format(self.nombre)
 
-class Profesor(models.Model):
-	rut=models.CharField(max_length=10)
-	nombre=models.CharField(max_length=20)
-	apellido=models.CharField(max_length=20)
-	fechanacimiento=models.DateTimeField()
-	profesores=models.Manager()
-
+class Maestra(models.Model):
+	rut_alumno = models.CharField(max_length=10)
+	tipo_de_permiso = models.PositiveIntegerField();
 	def __str__(self):
-		return "{}".format(self.nombre)
-
-def crear_profesor(sender,instance,**kwargs):
-	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
-	user.permisos=1
-	user.save()
-
-post_save.connect(crear_profesor,sender=Profesor)
+		return "{}".format(self.rut_alumno)
 
 class Curso(models.Model):
 	nombrecurso=models.CharField(max_length=20)
-	cupos=models.PositiveIntegerField()
-	#profesorjefe=models.ForeignKey(Profesor,on_delete=models.CASCADE)
+	codigo_curso=models.CharField(max_length=4)
+	#profesorjefe=models.ForeignKey(Profesor,on_delete=models.models.CASCADE)
 	colegio= models.ForeignKey(Colegio,on_delete=models.CASCADE)
 	cursos=models.Manager()
 
@@ -44,10 +33,51 @@ class Alumno(models.Model):
 	apellido=models.CharField(max_length=20)
 	fechanacimiento=models.DateTimeField()
 	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
+	sexo = models.PositiveIntegerField()
 	alumno=models.Manager()
 
 	def __str__(self):
 		return "{}".format(self.rut)
+
+class Apoderados(models.Model):
+	rut=models.CharField(max_length=10)
+	nombre=models.CharField(max_length=20)
+	apellido=models.CharField(max_length=20)
+	fechanacimiento=models.DateTimeField()
+	sexo = models.PositiveIntegerField()
+	alumnos = models.ForeignKey(Alumno,on_delete=models.CASCADE)
+	apoderados=models.Manager()
+
+	def __str__(self):
+		return "{}".format(self.nombre)
+
+class Asignatura(models.Model):
+	nombre_asignatura=models.CharField(max_length=20)
+	codigo=models.CharField(max_length=4)
+	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
+	
+	def __str__(self):
+		return "{}".format(self.codigo)
+
+class Profesor(models.Model):
+	rut=models.CharField(max_length=10)
+	nombre=models.CharField(max_length=20)
+	apellido=models.CharField(max_length=20)
+	fechanacimiento=models.DateTimeField()
+	sexo = models.PositiveIntegerField()
+	asignaturas = models.ForeignKey(Asignatura,on_delete=models.CASCADE)
+	responsabilidad = models.BooleanField()
+	profesores=models.Manager()
+
+	def __str__(self):
+		return "{}".format(self.nombre)
+
+def crear_profesor(sender,instance,**kwargs):
+	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+	user.permisos=2
+	user.save()
+
+post_save.connect(crear_profesor,sender=Profesor)
 
 def crear_alumno(sender,instance,**kwargs):
 	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
@@ -56,10 +86,18 @@ def crear_alumno(sender,instance,**kwargs):
 
 post_save.connect(crear_alumno,sender=Alumno)
 
-class Asignatura(models.Model):
-	nombre_asignatura=models.CharField(max_length=20)
-	nivel=models.CharField(max_length=20)
-	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
-	
+class Actividades(models.Model):
+	codigo_actividades = models.CharField(max_length=4)
+	nombre = models.CharField(max_length=10)
+	asignatura = models.ForeignKey(Asignatura,on_delete=models.CASCADE)
+
 	def __str__(self):
-		return "{}".format(self.nombre)
+		return "{}".format(self.codigo_actividades)
+
+class Notas(models.Model):
+	rut_alumno = models.ForeignKey(Alumno,on_delete=models.CASCADE)
+	nota = models.PositiveIntegerField()
+	codigo_actividad = models.ForeignKey(Actividades,on_delete=models.CASCADE)
+
+	def __str__(self):
+		return "{}".format(self.rut_alumno)
