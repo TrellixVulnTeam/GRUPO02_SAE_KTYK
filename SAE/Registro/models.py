@@ -74,14 +74,14 @@ class Profesor(models.Model):
 
 def crear_profesor(sender,instance,**kwargs):
 	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
-	user.permisos=2
+	user.first_name=1
 	user.save()
 
 post_save.connect(crear_profesor,sender=Profesor)
 
 def crear_alumno(sender,instance,**kwargs):
 	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
-	user.permisos=1
+	user.first_name=2
 	user.save()
 
 post_save.connect(crear_alumno,sender=Alumno)
