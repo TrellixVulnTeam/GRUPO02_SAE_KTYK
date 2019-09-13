@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ <h1>Asignatura del profeso {{profesor.nombre}} </h1>
+ <div class="container">
+ 	<div class="row mt-5 justify-content-center">
+ {% for asignatura in asignaturas %}
+ 	{% ifequal profesor.id asignatura.profesor.id %}
+ 		<div class="card" style="width: 18rem;">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 				<p class="card-text">Curso {{asignatura.curso}}</p>
+ 				<a href="/colegio/{{colegio.id}} " class="card-link">Ir</a>
+ 			</div>
+ 		</div>
+ 	{% endifequal %}
+ {% endfor %}		
+ 	</div>
+ 	<a class="btn btn-primary btn-lg" href="/colegio/create/" role="button">Agregar Colegio</a>
+ </div>
+{% endblock %}

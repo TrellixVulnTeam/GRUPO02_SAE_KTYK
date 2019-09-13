@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
 from django.views.generic import TemplateView
-from .models import Colegio,Curso,Alumno, Profesor
+from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -78,7 +79,11 @@ class HomeProfesoresView(LoginRequiredMixin, TemplateView):
 	def get(self,request,**kwargs):
 		return render(request,'Profesores.html',{'profesor':Profesor.profesores.all()} )
 
+#Vista Actividades
 
+class HomeAsignaturasView(LoginRequiredMixin, TemplateView):
+	def get(self,request,**kwargs):
+		return render(request,'Asignaturas.html',{'asignaturas':Asignatura.asignaturas.all(),'profesor':Profesor.profesores.get(rut=request.user.email)})
 
 #Detalles del colegio / Vista de Cursos de colegio
 class DetalleColegioView(LoginRequiredMixin,TemplateView):

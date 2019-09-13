@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from multiselectfield import MultiSelectField
 
 class Colegio(models.Model):
 	nombre=models.CharField(max_length=20)
@@ -28,50 +29,65 @@ class Curso(models.Model):
 		return "{}".format(self.codigo_curso)
 
 class Alumno(models.Model):
+	GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
 	rut=models.CharField(max_length=10)
 	nombre=models.CharField(max_length=20)
 	apellido=models.CharField(max_length=20)
 	fechanacimiento=models.DateTimeField()
 	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
-	sexo = models.PositiveIntegerField()
+	sexo = models.CharField(max_length=1,choices=GENDER_CHOICES)
 	alumno=models.Manager()
 
 	def __str__(self):
 		return "{}".format(self.rut)
 
 class Apoderados(models.Model):
+	GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
 	rut=models.CharField(max_length=10)
 	nombre=models.CharField(max_length=20)
 	apellido=models.CharField(max_length=20)
 	fechanacimiento=models.DateTimeField()
-	sexo = models.PositiveIntegerField()
+	sexo = models.CharField(max_length=1,choices=GENDER_CHOICES)
 	alumnos = models.ForeignKey(Alumno,on_delete=models.CASCADE)
 	apoderados=models.Manager()
 
 	def __str__(self):
 		return "{}".format(self.nombre)
 
-class Asignatura(models.Model):
-	nombre_asignatura=models.CharField(max_length=20)
-	codigo=models.CharField(max_length=4)
-	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
-	
-	def __str__(self):
-		return "{}".format(self.codigo)
-
 class Profesor(models.Model):
+	GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
 	rut=models.CharField(max_length=10)
 	nombre=models.CharField(max_length=20)
 	apellido=models.CharField(max_length=20)
 	fechanacimiento=models.DateTimeField()
-	sexo = models.PositiveIntegerField()
-	asignaturas = models.ForeignKey(Asignatura,on_delete=models.CASCADE)
+	sexo = models.CharField(max_length=1,choices=GENDER_CHOICES)
 	responsabilidad = models.BooleanField()
 	colegio_pertenece = models.ForeignKey(Colegio,on_delete=models.CASCADE)
 	profesores=models.Manager()
 
 	def __str__(self):
-		return "{}".format(self.nombre)
+		return "{}".format(self.rut)
+
+class Asignatura(models.Model):
+	nombre_asignatura=models.CharField(max_length=20)
+	codigo=models.CharField(max_length=4)
+	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
+	profesor=models.ForeignKey(Profesor,on_delete=models.CASCADE)
+	asignaturas= models.Manager()
+
+	def __str__(self):
+		return "{}".format(self.codigo)
+
+
 
 def crear_profesor(sender,instance,**kwargs):
 	if sender.responsabilidad== True:

@@ -7,6 +7,7 @@ urlpatterns = [
 	url(r'Colegios/',views.HomeColegiosView.as_view(),name="Colegios"),
 	url(r'Alumnos/',views.AlumnosView.as_view(),name="Alumnos"),
 	url(r'Profesores/',views.HomeProfesoresView.as_view(),name="Profesores"),
+	url(r'Asignaturas/',views.HomeAsignaturasView.as_view(),name="Asignaturas"),
 	re_path(r'^alumno/create/$', views.AlumnoCreate.as_view(success_url='/Alumnos/'), name='alumno_create'),
 	re_path(r'^alumno/(?P<pk>\d+)/update/$', views.AlumnoUpdate.as_view(success_url='/Alumnos/'), name='alumno_update'),
 	re_path(r'^alumno/(?P<pk>\d+)/delete/$', views.AlumnoDelete.as_view(success_url='/Alumnos/'),name='alumno_delete'),
