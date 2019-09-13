@@ -66,7 +66,12 @@ class HomeColegiosView(LoginRequiredMixin, TemplateView):
 #Vista Alumnos
 class HomeAlumnosView(LoginRequiredMixin, TemplateView):
 	def get(self,request,**kwargs):
-		return render(request,'Alumnos.html',{'alumno':Alumno.alumno.all()} )
+		nombre = kwargs["pk_curso"]
+		return render(request,'Alumnos.html',{'alumno':Alumno.alumno.all(),'curso':Curso.cursos.get(id=nombre),'tipo':1})
+
+class AlumnosView(LoginRequiredMixin, TemplateView):
+	def get(self,request,**kwargs):
+		return render(request,'Alumnos.html',{'alumno':Alumno.alumno.all(),'tipo':2})
 
 #Vista Profesores
 class HomeProfesoresView(LoginRequiredMixin, TemplateView):
@@ -85,7 +90,7 @@ class DetalleColegioView(LoginRequiredMixin,TemplateView):
 class DetalleCursoView(LoginRequiredMixin,TemplateView):
 	def get(self,request,**kwargs):
 		nombre=kwargs["pk_curso"]
-		return render(request,'Alumnos.html',{'alumno': Alumno.alumno.all(), 'cursos':Curso.cursos.get(id=nombre)})
+		return render(request,'curso.html',{'alumno': Alumno.alumno.all(), 'cursos':Curso.cursos.get(id=nombre)})
 
 ##Detalles del Profesor
 class DetalleProfesorView(LoginRequiredMixin,TemplateView):

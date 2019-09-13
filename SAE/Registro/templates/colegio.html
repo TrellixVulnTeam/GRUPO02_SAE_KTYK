@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% ifequal colegio.id user.last_name %}
 <h1 class="display-4">Cursos del Colegio {{colegio.nombre}}</h1>
 <p class="lead">{{colegio.comuna}}</p>
 <p>{{colegio.direccion}}</p>
@@ -23,4 +24,5 @@
 <a class="btn btn-primary btn-lg" href="/colegio/{{colegio.id}}/create" role="button">Agregar Cursos al Colegio</a>
 <a class="btn btn-primary btn-lg" href="/colegio/{{colegio.id}}/update" role="button">Actualizar Colegio</a>
 <a class="btn btn-primary btn-lg" href="/colegio/{{colegio.id}}/delete" role="button">Borrar Colegio</a>
+{% endifequal %}
 {% endblock %}

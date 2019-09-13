@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class="jumbotron">
-	<h1 class="display-4">{{curso.nombrecurso}}</h1>
-	<p class="lead">{{curso.cupos}}</p>
+	<h1 class="display-4">Curso {{cursos.nombrecurso}}</h1>
+	<p class="lead">Codigo Curso: {{cursos.codigo_curso}}</p>
 	<hr class="my-4">
 	<p>{{curso.profesorjefe}}</p>
-	<a class="btn btn-primary btn-lg" href="#" role="button">Agregar Alumnos</a>
-	<a class="btn btn-primary btn-lg" href="#" role="button">Agregar Asignaturas.</a>
+	<a class="btn btn-primary btn-lg" href="/colegio/{{cursos.colegio.id}}/{{cursos.id}}/alumnos/" role="button">Ver alumnos del curso</a>
+	<a class="btn btn-primary btn-lg" href="#" role="button">Ver asignaturas del curso</a>
 	<a class="btn btn-primary btn-lg" href="/colegio/{{curso.colegio.id}}/{{curso.id}}/update" role="button">Actualizar Curso</a>
 	<a class="btn btn-primary btn-lg" href="/colegio/{{curso.colegio.id}}/{{curso.id}}/delete" role="button">Borrar Curso</a>
 </div>

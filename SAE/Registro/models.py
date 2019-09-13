@@ -25,7 +25,7 @@ class Curso(models.Model):
 	cursos=models.Manager()
 
 	def __str__(self):
-		return "{}".format(self.nombrecurso)
+		return "{}".format(self.codigo_curso)
 
 class Alumno(models.Model):
 	rut=models.CharField(max_length=10)
