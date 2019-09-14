@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% ifequal tipo 1%}
-<h1>Alumnos en el S.A.E.</h1>
+<h1>Alumnos en el curso: {{curso.nombrecurso}}</h1>
  <div class="container">
  	<div class="row mt-5 justify-content-center">
  {% for alumnos in alumno %}
@@ -11,7 +11,7 @@
  				<h5 class="card-title">{{alumnos.id}}</h5>
  				<p class="card-text">{{alumnos.nombre}}</p>
  				<p class="card-text">{{alumnos.curso}}</p>
- 				<a href="/alumno/{{alumno.id}} " class="card-link">Ir</a>
+ 				<a href="/alumno/{{alumnos.id}} " class="card-link">Ir</a>
  			</div>
  		</div>
  	{% endifequal %}
@@ -22,16 +22,16 @@
 {% endifequal %}
 
 {% ifequal tipo 2%}
-<h1>Alumnos en el S.A.E.</h1>
+<h1>Alumnos en el Colegio: {{colegio.nombre}} .</h1>
  <div class="container">
  	<div class="row mt-5 justify-content-center">
  {% for alumnos in alumno %}
  		<div class="card" style="width: 18rem;">
  			<div class="card-body">
- 				<h5 class="card-title">{{alumnos.id}}</h5>
- 				<p class="card-text">{{alumnos.nombre}}</p>
- 				<p class="card-text">{{alumnos.curso}}</p>
- 				<a href="/alumno/{{alumno.id}} " class="card-link">Ir</a>
+ 				<h5 class="card-title">ID: {{alumnos.id}}</h5>
+ 				<p class="card-text">Nombre: {{alumnos.nombre}}</p>
+ 				<p class="card-text">Curso al que pertence: {{alumnos.curso.nombrecurso}}</p>
+ 				<a href="/alumno/{{alumnos.id}} " class="card-link">Ir</a>
  			</div>
  		</div>
  {% endfor %}		

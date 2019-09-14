@@ -95,7 +95,7 @@ def crear_profesor(sender,instance,**kwargs):
 		user.first_name=0
 		user.save()
 	else:
-		user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+		user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.rut, instance.rut)
 		user.first_name=1
 		user.save()
 

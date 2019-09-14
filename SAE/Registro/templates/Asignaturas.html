@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
- <h1>Asignatura del profeso {{profesor.nombre}} </h1>
+ <h1>Asignatura del profesor {{profesor.nombre}} {{profesor.apellido}} </h1>
  <div class="container">
  	<div class="row mt-5 justify-content-center">
  {% for asignatura in asignaturas %}
@@ -11,12 +11,9 @@
  				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
  				<p class="card-text">Codigo {{asignatura.codigo}}</p>
  				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{colegio.id}} " class="card-link">Ir</a>
+ 				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
  			</div>
  		</div>
  	{% endifequal %}
  {% endfor %}		
- 	</div>
- 	<a class="btn btn-primary btn-lg" href="/colegio/create/" role="button">Agregar Colegio</a>
- </div>
 {% endblock %}

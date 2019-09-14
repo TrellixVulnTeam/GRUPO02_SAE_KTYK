@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
- <h1>Profesores en el S.A.E.</h1>
+{% ifequal user.first_name 0%}
+ <h1>Profesores </h1>
  <div class="container">
  	<div class="row mt-5 justify-content-center">
  {% for profesor in profesor %}
+ 	{% ifequal user.last_name profesor.colegio_pertenece_id %}
  		<div class="card" style="width: 18rem;">
  			<div class="card-body">
  				<h5 class="card-title">{{profesor.rut}}</h5>
@@ -13,8 +15,27 @@
  				<a href="/profesor/{{profesor.id}} " class="card-link">Ir</a>
  			</div>
  		</div>
+ 	{% endifequal %}
  {% endfor %}		
  	</div>
  	<a class="btn btn-primary btn-lg" href="/profesor/create/" role="button">Agregar Profesor</a>
  </div>
+ {% endifequal %}
+ {% ifequal user.first_name 2%}
+ <h1>Profesores </h1>
+ <div class="container">
+ 	<div class="row mt-5 justify-content-center">
+ {% for profesor in profesor %}
+ 	{% ifequal user.last_name profesor.colegio_pertenece_id %}
+ 		<div class="card" style="width: 18rem;">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{profesor.rut}}</h5>
+ 				<p class="card-text">{{profesor.nombre}}</p>
+ 				<p class="card-text">{{profesor.curso}}</p>
+ 				<a href="# " class="card-link">Ver dashboard profesor (Proximamente)</a>
+ 			</div>
+ 		</div>
+ 	{% endifequal %}
+ {% endfor %}		
+ {% endifequal %}
 {% endblock %}

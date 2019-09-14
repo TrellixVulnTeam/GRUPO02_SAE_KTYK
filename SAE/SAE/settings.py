@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Registro',
+    'quiz',
+    'multichoice',
+    'true_false',
+    'essay',
     'accounts'
 ]
 
