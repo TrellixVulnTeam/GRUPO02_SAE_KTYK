@@ -15,5 +15,15 @@
   <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
 	{% trans "Start quiz" %}
   </a>
+  {% ifequal user.first_name 0 %}
+  <a href="/quiz/{{quiz.id}}/update">
+	{% trans "Modificar Quiz" %}
+  </a>
+  {% endifequal %}
+  {% ifequal user.first_name 1 %}
+  <a href="/quiz/{{quiz.id}}/update">
+	{% trans "Modificar Quiz" %}
+  </a>
+  {% endifequal %}
 </p>
 {% endblock %}

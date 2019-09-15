@@ -91,19 +91,21 @@ class Asignatura(models.Model):
 
 def crear_profesor(sender,instance,**kwargs):
 	if sender.responsabilidad== True:
-		user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+		user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.rut, instance.rut)
 		user.first_name=0
+		user.last_name=instance.colegio_pertenece
 		user.save()
 	else:
 		user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.rut, instance.rut)
 		user.first_name=1
+		user.last_name=instance.colegio_pertenece
 		user.save()
 
 
 post_save.connect(crear_profesor,sender=Profesor)
 
 def crear_alumno(sender,instance,**kwargs):
-	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.nombre+'@colegio.com', instance.rut)
+	user = User.objects.create_user(instance.nombre[0]+'.'+instance.apellido, instance.rut, instance.rut)
 	user.first_name=2
 	user.save()
 

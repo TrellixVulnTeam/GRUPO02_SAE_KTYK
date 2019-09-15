@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Quizzes de la asignatura {{asignatura.nombre_asignatura}} </h1>
-    {% if quiz_list %}
+    {% if quiz %}
 		<table class="table table-bordered table-striped">
 
 		  <thead>
 			<tr>
-			  <th>{"Nombre Quiz"}</th>
-			  <th>{"Categoria" }</th>
-			  <th>{"Examen" }</th>
-			  <th>{"Solo un intento"}</th>
+			  <th>Nombre Quiz</th>
+			  <th>Categoria</th>
+			  <th>Examen</th>
+			  <th>Solo un intento</th>
 			  <th></th>
 			</tr>
 		  </thead>
 
 		  <tbody>
 
-        {% for quiz in quiz_list %}
+        {% for quiz in quiz %}
 
   			<tr>
 			  <td>{{ quiz.title }}</td>
@@ -40,12 +40,18 @@
 
 {% ifequal user.first_name 1 %}
 </div>
-<a class="btn btn-primary btn-lg" href="#/" role="button">Agregar Quizz</a>
+<a class="btn btn-primary btn-lg" href="/quiz/create" role="button">Agregar Quizz</a>
+</div>
+</div>
+<a class="btn btn-primary btn-lg" href="/preguntas/" role="button">Agregar Preguntas</a>
 </div>
 {% endifequal %}
 {% ifequal user.first_name 0 %}
 </div>
-<a class="btn btn-primary btn-lg" href="#/" role="button">Agregar Quizz</a>
+<a class="btn btn-primary btn-lg" href="/quiz/create/" role="button">Agregar Quizz</a>
+</div>
+</div>
+<a class="btn btn-primary btn-lg" href="/preguntas/" role="button">Agregar Preguntas</a>
 </div>
 {% endifequal %}
  	

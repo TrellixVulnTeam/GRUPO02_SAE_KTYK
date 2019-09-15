@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.views.generic import TemplateView,ListView
 from .models import *
 from quiz.models import *
+from multichoice.models import *
+from essay.models import *
+from true_false.models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -22,6 +25,73 @@ class ColegioDelete(DeleteView):
 	model = Colegio
 	template_name = './colegio_confirm_delete.html'
 	success_url = reverse_lazy('Colegios')
+
+
+class QuizzCreate(CreateView):
+	model = Quiz
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class QuizUpdate(UpdateView):
+	model = Quiz
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class QuizDelete(DeleteView):
+	model = Quiz
+	template_name = './colegio_confirm_delete.html'
+	success_url = reverse_lazy('')
+
+class TFCreate(CreateView):
+	model = TF_Question
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class TFUpdate(UpdateView):
+	model = TF_Question
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class TFDelete(DeleteView):
+	model = TF_Question
+	template_name = './colegio_confirm_delete.html'
+	success_url = reverse_lazy('')
+
+class MCQuestionCreate(CreateView):
+	model = MCQuestion
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class MCQuestionUpdate(UpdateView):
+	model = MCQuestion
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class MCQuestionDelete(DeleteView):
+	model = MCQuestion
+	template_name = './colegio_confirm_delete.html'
+	success_url = reverse_lazy('')
+
+class Essay_QuestionCreate(CreateView):
+	model = Essay_Question
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class Essay_QuestionUpdate(UpdateView):
+	model = Essay_Question
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
+class Essay_QuestionDelete(DeleteView):
+	model = Essay_Question
+	template_name = './colegio_confirm_delete.html'
+	success_url = reverse_lazy('')
+
+class OpcionesMC(CreateView):
+	model = Answer
+	template_name = './colegio_form.html'
+	fields = '__all__'
+
 
 #Clases Alumnos
 class AlumnoCreate(CreateView):
@@ -55,6 +125,10 @@ class ProfesorDelete(DeleteView):
 	template_name = './profesor_confirm_delete.html'
 	success_url = reverse_lazy('Profesor')
 
+#preguntas
+class Preguntas(LoginRequiredMixin, TemplateView):
+	def get(self,request,**kwargs):
+		return render(request,'preguntas.html')
 #index
 class HomePageView(TemplateView):
 	def get(self,request,**kwargs):
