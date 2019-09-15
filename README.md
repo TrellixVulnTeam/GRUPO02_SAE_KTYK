@@ -1,2 +1,3 @@
 # GRUPO02_SAE
 SISTEMA INTEGRAL DE APOYO ESCOLAR
+Leer readme.txt en carpeta SAE
