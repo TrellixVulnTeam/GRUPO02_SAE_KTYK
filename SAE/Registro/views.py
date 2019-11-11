@@ -97,7 +97,18 @@ class OpcionesMC(CreateView):
 class AlumnoCreate(CreateView):
 	model = Alumno
 	template_name = './alumno_form.html'
-	fields = '__all__'
+	fields = ['nombre','apellido','rut','fechanacimiento','sexo','curso']
+
+class AlumnoCreate2(CreateView):
+	model = Alumno
+	template_name = './alumno_form.html'
+	fields = ['nombre','apellido','rut','fechanacimiento','sexo']
+
+	def form_valid(self,form):
+		
+		curso = Curso.cursos.get(id=self.kwargs["pk_curso"])
+		form.instance.curso = curso
+		return super(AlumnoCreate2,self).form_valid(form)	
 
 class AlumnoUpdate(UpdateView):
 	model = Alumno
@@ -223,7 +234,13 @@ class QuizCreate(LoginRequiredMixin,CreateView):
 class CursoCreate(LoginRequiredMixin,CreateView):
 	model = Curso
 	template_name = './curso_form.html'
-	fields = '__all__'
+	fields = ['nombrecurso','codigo_curso']
+
+	def form_valid(self,form):
+		
+		colegio = Colegio.colegios.get(id=self.kwargs["pk"])
+		form.instance.colegio = colegio
+		return super(CursoCreate,self).form_valid(form)
 
 
 class CursoUpdate(UpdateView):
@@ -237,11 +254,31 @@ class CursoDelete(DeleteView):
 	success_url = reverse_lazy('Cursos')
 
 ##Clases Cursos
-class AsignaturaCreate(LoginRequiredMixin,CreateView):
-	model = Asignatura
-	template_name = './curso_form.html'
+class QuizCreateNivelacion(CreateView):
+	model = Quiz
+	template_name = './colegio_form.html'
 	fields = '__all__'
 
+class AsignaturaCreate(LoginRequiredMixin,CreateView):
+
+	model = Asignatura
+	template_name = './curso_form.html'
+	fields = ['nombre_asignatura','codigo','profesor']
+
+	
+
+
+	def form_valid(self,form):
+		idcolegio=self.kwargs["pk_colegio"]
+		cursito = Curso.cursos.get(id=self.kwargs["pk_curso"])
+		form.instance.curso = cursito
+		return super(AsignaturaCreate,self).form_valid(form)
+
+	def get_success_url(self):
+
+		colegioid=self.kwargs["pk_colegio"]
+		cursoid=self.kwargs["pk_curso"]
+		return reverse_lazy('asignaturas_del_curso',kwargs={"pk_colegio":colegioid,"pk_curso":cursoid})
 
 class AsignaturaUpdate(UpdateView):
 	model = Asignatura
@@ -252,3 +289,57 @@ class AsignaturaDelete(DeleteView):
 	model = Asignatura
 	template_name = './curso_confirm_delete.html'
 	success_url = reverse_lazy('Cursos')
+
+
+def DetalleAsignatura(request,pk_colegio,pk_curso,pk_asignatura):
+	asignaturas = Asignatura.asignaturas.get(id=pk_asignatura)
+	unidades=asignaturas.unidades
+	
+	if unidades == 0:
+		unidadesasignatura=None
+	else:
+		unidadesasignatura=Unidad.unidades.all()
+		unidadesasignatura=unidadesasignatura.filter(asignatura=pk_asignatura)
+
+	if request.POST.get('unidades'):
+		unidades = int(request.POST.get('unidades'))
+		asignaturas.unidades=1
+		asignaturas.save()
+		for i in range(unidades):
+			unidad= Unidad()
+			unidad.nombre= ("Unidad "+str(i+1))
+			unidad.asignatura=asignaturas
+			unidad.save()
+
+		unidadesasignatura=Unidad.unidades.all()
+		unidadesasignatura=unidadesasignatura.filter(asignatura=pk_asignatura)
+
+		
+		
+
+	return render(request, "detalleasignaturas.html", {'asignaturas': asignaturas,'unidades':unidades,'unidadesasignatura':unidadesasignatura,'pk_colegio':pk_colegio,'pk_curso':pk_curso,'pk_asignatura':pk_asignatura})
+
+def DetalleUnidad(request,pk_colegio,pk_curso,pk_asignatura,pk_unidad):
+
+	unidad=Unidad.unidades.get(id=pk_unidad)
+
+	if unidad.lvls == 0:
+		lvlsunidad=None
+	else:
+		lvlsunidad=Nivel.niveles.all()
+		lvlsunidad=lvlsunidad.filter(unidad=pk_unidad)
+
+	if request.POST.get('niveles'):
+		niveles = int(request.POST.get('niveles'))
+		unidad.lvls=1
+		unidad.save()
+		for i in range(niveles):
+			nivel= Nivel()
+			nivel.nombre= ("Nivel "+str(i+1))
+			nivel.unidad=unidad
+			nivel.save()
+
+		lvlsunidad=Nivel.niveles.all()
+		lvlsunidad=lvlsunidad.filter(unidad=pk_unidad)
+
+	return render(request, "detalleunidad.html", {'lvlsunidad':lvlsunidad,'unidad':unidad,'pk_colegio':pk_colegio,'pk_curso':pk_curso,'pk_asignatura':pk_asignatura})

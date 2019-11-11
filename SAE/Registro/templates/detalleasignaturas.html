@@ -1,0 +1,19 @@
+<body>
+	{% ifequal asignaturas.unidades 0 %}
+    
+    <form  method="POST">
+        Ingrese la cantidad de unidades que desea para la asignatura: 
+        <input type="number" min=1 max=10 name="unidades" value="{{unidades}}" style="width:40px" / >
+        <input type="submit" value="Crear unidades">
+        {% csrf_token %}
+    </form>
+    {% else %}
+    		<li>Nombre  | ID</li>
+    	{% for unidadesasignaturas in unidadesasignatura %}
+    		<li>{{unidadesasignaturas.nombre}}|{{unidadesasignaturas.id}}<a href="unidad/{{unidadesasignaturas.id}} " class="card-link">Ir</a></li>
+    	{% endfor%}
+    {% endifequal %}
+    </div>
+
+</div>
+</body>

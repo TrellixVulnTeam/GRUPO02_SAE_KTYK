@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<form  method="POST">
+        Ingrese la cantidad de unidades que desea para la asignatura: 
+        <input type="number" min=1 max=10 name="unidades" value="{{unidades}}" style="width:40px" / >
+        <input type="submit" value="Crear unidades">
+        {% csrf_token %}
+</form>
 <div class="container" style="width: 20rem">
 	<form action="" method="post">
 		{% csrf_token %}

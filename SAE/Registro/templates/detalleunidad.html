@@ -1,0 +1,17 @@
+<body>
+	{% ifequal unidad.lvls 0 %}
+    
+    <form  method="POST">
+        Ingrese la cantidad de niveles que desea para esta unidad (Minimo: 1 Max: 3): 
+        <input type="number" min=1 max=3 name="niveles" value="{{niveles}}" style="width:40px" / >
+        <input type="submit" value="Crear niveles">
+        {% csrf_token %}
+    </form>
+    {% else %}
+    		<li>Nombre  | ID</li>
+    	{% for lvlsunidad in lvlsunidad %}
+    		<li>{{lvlsunidad.nombre}}|{{lvlsunidad.id}}<a href="lvls/{{lvlsunidad.id}} " class="card-link">Ir</a></li>
+    	{% endfor%}
+    {% endifequal %}
+    <a class="btn btn-primary btn-lg" href="quiz/createnivelacion" role="button">Crear prueba de nivelacion</a>
+</body>

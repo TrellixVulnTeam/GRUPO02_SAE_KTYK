@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView, FormView
-
+from Registro.models import *
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
@@ -56,7 +56,7 @@ class CategoriesListView(ListView):
 
 class ViewQuizListByCategory(ListView):
     model = Quiz
-    template_name = 'view_quiz_category.html'
+    template_name = 'view_category.html'
 
     def dispatch(self, request, *args, **kwargs):
         self.category = get_object_or_404(
@@ -238,6 +238,13 @@ class QuizTake(FormView):
             'previous': self.previous,
         }
 
+
+        puntaje = Puntaje()
+        puntaje.codigo_actividad = self.quiz.id
+        puntaje.acomulado=self.sitting.get_percent_correct
+        puntaje.alumno_id=self.request.user.id
+        puntaje.save()
+
         self.sitting.mark_quiz_complete()
 
         if self.quiz.answers_at_end:
@@ -340,6 +347,8 @@ class QuizTake(FormView):
             'session': session,
             'possible': session_possible
         }
+
+
 
         del self.request.session[self.quiz.anon_q_list()]
 
