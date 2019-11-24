@@ -1,0 +1,59 @@
+{% ifnotequal user.first_name 2%}
+<body>
+    {% ifequal unidad.pruebanivelacion 0 %}
+    </div>
+        <a class="btn btn-primary btn-lg" href="quiz/createnivelacion" role="button">Crear prueba de nivelacion</a>
+    </div>
+    {% endifequal %}
+	{% ifequal unidad.lvls 0 %}
+    
+    <form  method="POST">
+        Ingrese la cantidad de niveles que desea para esta unidad (Minimo: 1 Max: 3): 
+        <input type="number" min=1 max=3 name="niveles" value="{{niveles}}" style="width:40px" / >
+        <input type="submit" value="Crear niveles">
+        {% csrf_token %}
+    </form>
+    {% else %}
+    		<li>Nombre  | ID  | Rango del Lvl</li>
+    	{% for lvlsunidad in lvlsunidad %}
+    		<li>{{lvlsunidad.nombre}}|{{lvlsunidad.id}}
+                {% ifnotequal lvlsunidad.porcentajeaprovacion None %}
+                    |{{lvlsunidad.porcentajeminimo}}% a {{lvlsunidad.porcentajeaprovacion}}%
+                {% endifnotequal %}
+
+                <a href="lvls/{{lvlsunidad.id}} " class="card-link">Ir</a>
+                
+            </li>
+    	{% endfor%}
+        {% ifequal unidad.porcentajesasignados 0 %}
+            {% ifequal cantidad 2%}
+            <form  method="POST">
+                Porcentaje aprobacion lvl 1<input type="number" min=0 max=100 name="ap1" value="{{ap1}}" style="width:40px" / >
+                Porcentaje aprobacion lvl 2 se asigna automaticamente.
+                <input type="submit" value="Aceptar">
+                    {% csrf_token %}
+            </form>
+            {% endifequal%}
+            {% ifequal cantidad 3%}
+                <form  method="POST">
+                Porcentaje aprobacion lvl 1<input type="number" min=0 max=100 name="ap1" value="{{ap1}}" style="width:40px" / >
+                Porcentaje aprobacion lvl 2 debe ser mayor al porcentaje de aprobacion del lvl 1<input type="number" min=0 max=100 name="ap1" value="{{ap2}}" style="width:40px" / >
+                Porcentaje aprobacion lvl 3 se asigna automaticamente.
+                <input type="submit" value="Aceptar">
+                    {% csrf_token %}
+            </form>
+            {% endifequal%}
+        {% endifequal %}
+    {% endifequal %}
+{% else %}
+    {% if rendido%}
+        Ya rindio el examen de nivelacion
+        quedo en el nivel: {{lvlasignado.nivel_asignado.nombre}} | <a href="lvls/{{lvlasignado.nivel_asignado.id}} " class="card-link">Ir</a>
+        
+    {% else %}
+        Debe rendir el examen de nivelacion <a href="/quizz/{{pruebanivelacion.url}}/ " class="card-link">Ir</a>
+    {% endif%}
+    
+
+</body>
+{% endifnotequal %}
