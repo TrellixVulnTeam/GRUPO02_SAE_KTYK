@@ -6,7 +6,9 @@
  	<div class="row mt-5 justify-content-center">
  {% for asignatura in asignaturas %}
  	{% ifequal profesor.id asignatura.profesor.id %}
+ 	{% ifequal asignatura.materia "len" %}
  		<div class="card" style="width: 18rem;">
+
  			<div class="card-body">
  				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
  				<p class="card-text">Codigo {{asignatura.codigo}}</p>
@@ -14,6 +16,73 @@
  				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
  			</div>
  		</div>
+ 		{% endifequal %}
+ 		{% ifequal asignatura.materia "mat" %}
+ 		<div class="card" style="width: 18rem;">
+ 			<img class="card-img-top" src="{% static 'images/LENGUAJE.png' %}" alt="Card image cap">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 				<p class="card-text">Curso {{asignatura.curso}}</p>
+ 				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 			</div>
+ 		</div>
+ 		{% endifequal %}
+ 		{% ifequal asignatura.materia "his" %}
+ 		<div class="card" style="width: 18rem;">
+ 			<img class="card-img-top" src="{% static 'images/HISTORIA.png' %}" alt="Card image cap">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 				<p class="card-text">Curso {{asignatura.curso}}</p>
+ 				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 			</div>
+ 		</div>
+ 		{% endifequal %}
+ 		{% ifequal asignatura.materia "fis" %}
+ 		<div class="card" style="width: 18rem;">
+ 			<img class="card-img-top" src="{% static 'images/FISICA.png' %}" alt="Card image cap">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 				<p class="card-text">Curso {{asignatura.curso}}</p>
+ 				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 			</div>
+ 		</div>
+ 		{% endifequal %}
+ 		{% ifequal asignatura.materia "qui" %}
+ 		<div class="card" style="width: 18rem;">
+ 			<img class="card-img-top" src="{% static 'images/QUIMICA.png' %}" alt="Card image cap">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 				<p class="card-text">Curso {{asignatura.curso}}</p>
+ 				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 			</div>
+ 		</div>
+ 		{% endifequal %}
+ 		{% ifequal asignatura.materia "bio" %}
+ 		<div class="card" style="width: 18rem;">
+ 			<img class="card-img-top" src="{% static 'images/BIOLOGIA.png' %}" alt="Card image cap">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 				<p class="card-text">Curso {{asignatura.curso}}</p>
+ 				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 			</div>
+ 		</div>
+ 		{% endifequal %}
+ 		{% ifequal asignatura.materia "ing" %}
+ 		<div class="card" style="width: 18rem;">
+ 			<img class="card-img-top" src="{% static 'images/INGLES.png' %}" alt="Card image cap">
+ 			<div class="card-body">
+ 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 				<p class="card-text">Curso {{asignatura.curso}}</p>
+ 				<a href="/colegio/{{profesor.colegio_pertenece_id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 			</div>
+ 		</div>
+ 		{% endifequal %}
  	{% endifequal %}
  {% endfor %}		
 {% endblock %}
