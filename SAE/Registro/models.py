@@ -87,11 +87,21 @@ class Profesor(models.Model):
 		return "{}".format(self.rut)
 
 class Asignatura(models.Model):
+	materias= (
+        ('leg', 'Lenguaje'),
+        ('mat', 'Matematicas'),
+        ('his', 'Historia'),
+        ('fis', 'Fisica'),
+        ('qui', 'Quimica'),
+        ('bio', 'Biologia'),
+        ('ing', 'Ingles'),
+    )
 	nombre_asignatura=models.CharField(max_length=20)
 	codigo=models.CharField(max_length=4)
 	curso=models.ForeignKey(Curso,on_delete=models.CASCADE)
 	profesor=models.ForeignKey(Profesor,on_delete=models.CASCADE)
 	unidades=models.PositiveIntegerField(default=0, blank=True, null=True)
+	materia=models.CharField(max_length=3,choices=materias, blank=True, null=True)
 	asignaturas= models.Manager()
 
 	def __str__(self):
