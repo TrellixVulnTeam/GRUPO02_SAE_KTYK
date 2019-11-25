@@ -1,7 +1,7 @@
 {% load staticfiles %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-	<a class="navbar-brand" href="{% url 'index' %}"<img src="{% static 'images/Logo152.png' %}"/></a>
-		<img id="brand-image" alt="Website Logo" src="{% static 'images/Logo152.png' %}" />
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #ffa726;">
+	<a class="navbar-brand" href="{% url 'index' %}"><img id="brand-image"  src="{% static 'images/Logo152.png' %}" /></a>
+		
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNav">
@@ -47,12 +47,12 @@
 </ul>
 {% endifequal %}
 <span class="navbar-text">
-	{{ user.username }}
+	<i alt="Website Logo" class="fas fa-user"></i> {{ user.username }}
 
 </span>
 {% else %}
 <li class="nav-item">
-	<a class="nav-link" href="{%url 'login' %} ">Login</a>
+	<a class="nav-link"  href="{%url 'login' %} ">Login</a>
 </li>
 <li class="nav-item">
 	<a class="nav-link" href="{%url 'signup' %}">Signup</a>
