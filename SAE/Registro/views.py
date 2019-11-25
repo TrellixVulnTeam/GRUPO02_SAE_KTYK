@@ -217,7 +217,7 @@ class DetalleProfesorView(LoginRequiredMixin,TemplateView):
 		nombre=kwargs["pk_profesor"]
 		return render(request,'detalleprofesor.html',{'profesor': Profesor.profesores.get(id=nombre)})
 
-class QuizListView(ListView):
+class QuizListView(LoginRequiredMixin,ListView):
     model = Quiz
 
     def get_queryset(self):
