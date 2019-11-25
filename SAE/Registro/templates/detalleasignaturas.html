@@ -1,19 +1,36 @@
-<body>
-	{% ifequal asignaturas.unidades 0 %}
-    
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% ifequal asignaturas.unidades 0 %}
+    {% ifnotequal user.first_name 2%}
+
     <form  method="POST">
-        Ingrese la cantidad de unidades que desea para la asignatura: 
+    Ingrese la cantidad de unidades que desea para la asignatura: 
         <input type="number" min=1 max=10 name="unidades" value="{{unidades}}" style="width:40px" / >
         <input type="submit" value="Crear unidades">
         {% csrf_token %}
     </form>
-    {% else %}
-    		<li>Nombre  | ID</li>
-    	{% for unidadesasignaturas in unidadesasignatura %}
-    		<li>{{unidadesasignaturas.nombre}}|{{unidadesasignaturas.id}}<a href="unidad/{{unidadesasignaturas.id}} " class="card-link">Ir</a></li>
-    	{% endfor%}
-    {% endifequal %}
+    {% endifnotequal %}
+{% else %}
+<div class="container">
+    <div class="row mt-3">
+        {% for unidadesasignaturas in unidadesasignatura %}
+        <div class="col-sm-3">
+            <div class="card border-danger mb-3" style="max-width: 18rem;">
+              <div class="card-header" style="color:#f44336">{{unidadesasignaturas.nombre}} </div>
+              <div class="card-body text-danger">
+                <h5 class="card-title">ID: {{unidadesasignaturas.id}}</h5>
+                <p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="card-link">Ir</a></p>
+            </div>
+        </div>
     </div>
+    {% endfor%}
+    
+</div>
+{% endifequal %}
+</div>
 
 </div>
-</body>
+{% endblock %}

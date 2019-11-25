@@ -5,91 +5,107 @@
 
 <h1><center>Asignaturas del curso {{curso.nombrecurso}}</center></h1>
  <div class="container">
- 	<div class="row mt-5 justify-content-center">
+ 	<div class="row mt-2">
  {% for asignatura in asignaturas %}
  	{% ifequal asignatura.curso_id curso.id %}
  		{% ifequal asignatura.materia "len" %}
- 		<div class="card text-center text-white bg-danger mb-3" style="max-width: 18rem;">
- 			<img class="card-img-top" src="{% static 'images/LENGUAJE.png' %}" alt="Card image cap">
- 			<div class="card-body">
- 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
- 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
- 				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 		<div class="col-sm-3">
+ 			<div class="card text-center text-white bg-danger mb-3" style="max-width: 18rem;">
+ 				<img class="card-img-top" src="{% static 'images/LENGUAJE.png' %}" alt="Card image cap">
+ 				<div class="card-body">
+ 					<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 					<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 					<p class="card-text">Curso {{asignatura.curso}}</p>
+ 					<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 				</div>
  			</div>
  		</div>
  		{% endifequal %}
  		
  		{% ifequal asignatura.materia "mat" %}
- 		 <div class="card text-center text-white bg-primary mb-3" style="max-width: 18rem;">
- 			<img class="card-img-top" src="{% static 'images/MATEMATICAS.png' %}" alt="Card image cap">
- 			<div class="card-body">
- 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
- 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
- 				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 		<div class="col-sm-3">
+ 			<div class="card text-center text-white bg-primary mb-3" style="max-width: 18rem;">
+ 				<img class="card-img-top" src="{% static 'images/MATEMATICAS.png' %}" alt="Card image cap">
+ 				<div class="card-body">
+ 					<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 					<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 					<p class="card-text">Curso {{asignatura.curso}}</p>
+ 					<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 				</div>
  			</div>
  		</div>
  		{% endifequal %}
  		{% ifequal asignatura.materia "his" %}
- 		<div class="card  text-center text-white bg-warning mb-3" style="max-width: 18rem;">
- 			<img class="card-img-top" src="{% static 'images/HISTORIA.png' %}" alt="Card image cap">
- 			<div class="card-body">
- 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
- 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
- 				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 		<div class="col-sm-3">
+ 			<div class="card  text-center text-white bg-warning mb-3" style="max-width: 18rem;">
+ 				<img class="card-img-top" src="{% static 'images/HISTORIA.png' %}" alt="Card image cap">
+ 				<div class="card-body">
+ 					<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 					<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 					<p class="card-text">Curso {{asignatura.curso}}</p>
+ 					<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 				</div>
  			</div>
  		</div>
  		{% endifequal %}
  		{% ifequal asignatura.materia "fis" %}
- 		 <div class="card text-center text-white bg-info mb-3" style="max-width: 18rem;">
- 			<img class="card-img-top" src="{% static 'images/FISICA.png' %}" alt="Card image cap">
- 			<div class="card-body">
- 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
- 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
- 				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 		<div class="col-sm-3">
+ 			<div class="card text-center text-white bg-info mb-3" style="max-width: 18rem;">
+ 				<img class="card-img-top" src="{% static 'images/FISICA.png' %}" alt="Card image cap">
+ 				<div class="card-body">
+ 					<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 					<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 					<p class="card-text">Curso {{asignatura.curso}}</p>
+ 					<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 				</div>
  			</div>
  		</div>
  		{% endifequal %}
  		{% ifequal asignatura.materia "qui" %}
- 		<div class="card text-center text-white bg-dark mb-3" style="max-width: 18rem;">
- 			<img class="card-img-top" src="{% static 'images/QUIMICA.png' %}" alt="Card image cap">
- 			<div class="card-body">
- 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
- 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
- 				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 		<div class="col-sm-3">
+ 			<div class="card text-center text-white bg-dark mb-3" style="max-width: 18rem;">
+ 				<img class="card-img-top" src="{% static 'images/QUIMICA.png' %}" alt="Card image cap">
+ 				<div class="card-body">
+ 					<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 					<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 					<p class="card-text">Curso {{asignatura.curso}}</p>
+ 					<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 				</div>
  			</div>
  		</div>
  		{% endifequal %}
  		{% ifequal asignatura.materia "bio" %}
- 		<div class="card text-center text-white bg-success mb-3" style="max-width: 18rem;">
- 			<img class="card-img-top" src="{% static 'images/BIOLOGIA.png' %}" alt="Card image cap">
- 			<div class="card-body">
- 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
- 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
- 				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 		<div class="col-sm-3">
+ 			<div class="card text-center text-white bg-success mb-3" style="max-width: 18rem;">
+ 				<img class="card-img-top" src="{% static 'images/BIOLOGIA.png' %}" alt="Card image cap">
+ 				<div class="card-body">
+ 					<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 					<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 					<p class="card-text">Curso {{asignatura.curso}}</p>
+ 					<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 				</div>
  			</div>
  		</div>
  		{% endifequal %}
  		{% ifequal asignatura.materia "ing" %}
- 		<div class="card text-center text-white bg-secondary mb-3" style="max-width: 18rem;">
- 			<img class="card-img-top" src="{% static 'images/INGLES.png' %}" alt="Card image cap">
- 			<div class="card-body">
- 				<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
- 				<p class="card-text">Codigo {{asignatura.codigo}}</p>
- 				<p class="card-text">Curso {{asignatura.curso}}</p>
- 				<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 		<div class="col-sm-3">
+ 			<div class="card text-center text-white bg-secondary mb-3" style="max-width: 18rem;">
+ 				<img class="card-img-top" src="{% static 'images/INGLES.png' %}" alt="Card image cap">
+ 				<div class="card-body">
+ 					<h5 class="card-title">{{asignatura.nombre_asignatura}}</h5>
+ 					<p class="card-text">Codigo {{asignatura.codigo}}</p>
+ 					<p class="card-text">Curso {{asignatura.curso}}</p>
+ 					<a href="/colegio/{{curso.colegio.id}}/{{asignatura.curso_id}}/asignaturas/{{asignatura.id}} " class="card-link">Ir</a>
+ 				</div>
  			</div>
  		</div>
  		{% endifequal %}
  	
  	{% endifequal %}
- {% endfor %}		
+ {% endfor %}
+ {% ifnotequal user.first_name 2%}		
  	</div>
  	<a class="btn btn-primary btn-lg" href="/colegio/{{curso.colegio.id}}/{{curso.id}}/asignaturas/create/" role="button">Agregar Asignatura al curso</a>
  </div>
+ {% endifnotequal %}
 {% endblock %}
