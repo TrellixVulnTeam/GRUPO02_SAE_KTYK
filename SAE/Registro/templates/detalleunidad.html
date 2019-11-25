@@ -20,7 +20,7 @@
                   <div class="card-header" style="color:#f44336">{{lvlsunidad.nombre}} </div>
                   <div class="card-body text-danger">
                       <h5 class="card-title">ID: {{lvlsunidad.id}}</h5>
-                      <p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="card-link">Ir</a></p>
+                      <p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="btn btn-outline-danger">Ir</a></p>
                   </div>
               </div>
           </div>
@@ -29,7 +29,8 @@
       </div>
   </div>
   {% endifequal %}    
-
+  {% ifnotequal user.first_name 2%}
   <center><a class="btn btn-outline-danger" href="quiz/createnivelacion" role="button">Crear prueba de nivelacion</a></center>
+  {% endifnotequal %}
 </body>
 {% endblock %}
