@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
-from Registro.models import *
+from Registro.models import Asignatura
 from model_utils.managers import InheritanceManager
 
 
@@ -66,10 +66,20 @@ class SubCategory(models.Model):
 
 @python_2_unicode_compatible
 class Quiz(models.Model):
+    Lvl = (
+        (3, 'Alto'),
+        (2, 'Medio'),
+        (1, 'Bajo'),
+    )
+
 
     title = models.CharField(
         verbose_name=_("Title"),
         max_length=60, blank=False)
+
+    asignatura = models.ForeignKey(Asignatura,on_delete=models.CASCADE, blank=True, null=True)
+
+    nivel_quizz = models.IntegerField(choices=Lvl, blank=True, null=True)
 
     description = models.TextField(
         verbose_name=_("Description"),
@@ -567,6 +577,13 @@ class Question(models.Model):
                                      blank=True,
                                      null=True,
                                      on_delete=models.CASCADE)
+
+    Lvl_diff = (
+        (3, 'Alto'),
+        (2, 'Medio'),
+        (1, 'Bajo'),
+    )
+    lvl_dificultad = models.IntegerField(choices=Lvl_diff, blank=True, null=True,verbose_name=_('Nivel dificultad de la pregunta'))
 
     figure = models.ImageField(upload_to='uploads/%Y/%m/%d',
                                blank=True,

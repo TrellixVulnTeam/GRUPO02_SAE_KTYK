@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% ifnotequal user.first_name 2%}
 <body>
     {% ifequal unidad.pruebanivelacion 0 %}
@@ -5,6 +6,9 @@
         <a class="btn btn-primary btn-lg" href="quiz/createnivelacion" role="button">Crear prueba de nivelacion</a>
     </div>
     {% endifequal %}
+=======
+<body>
+>>>>>>> CRUfaltantes
 	{% ifequal unidad.lvls 0 %}
     
     <form  method="POST">
@@ -14,6 +18,7 @@
         {% csrf_token %}
     </form>
     {% else %}
+<<<<<<< HEAD
     		<li>Nombre  | ID  | Rango del Lvl</li>
     	{% for lvlsunidad in lvlsunidad %}
     		<li>{{lvlsunidad.nombre}}|{{lvlsunidad.id}}
@@ -57,3 +62,12 @@
 
 </body>
 {% endifnotequal %}
+=======
+    		<li>Nombre  | ID</li>
+    	{% for lvlsunidad in lvlsunidad %}
+    		<li>{{lvlsunidad.nombre}}|{{lvlsunidad.id}}<a href="lvls/{{lvlsunidad.id}} " class="card-link">Ir</a></li>
+    	{% endfor%}
+    {% endifequal %}
+    <a class="btn btn-primary btn-lg" href="quiz/createnivelacion" role="button">Crear prueba de nivelacion</a>
+</body>
+>>>>>>> CRUfaltantes
