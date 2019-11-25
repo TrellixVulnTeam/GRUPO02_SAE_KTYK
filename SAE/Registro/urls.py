@@ -42,5 +42,5 @@ urlpatterns = [
 	#re_path(r'^colegio/(?P<pk_colegio>\d+)/(?P<pk_curso>\d+)/asignaturas/(?P<pk_asignatura>\d+)//unidad/(?P<pk_unidad>\d+)/lvl/$', views.HomeActividadesView.as_view(), name='actividades_de_asignatura'),	
 	re_path(r'^colegio/(?P<pk_colegio>\d+)/(?P<pk_curso>\d+)/asignaturas/(?P<pk_asignatura>\d+)/$', views.DetalleAsignatura, name='detalle_de_asignatura'),	
 	re_path(r'^colegio/(?P<pk_colegio>\d+)/(?P<pk_curso>\d+)/asignaturas/(?P<pk_asignatura>\d+)/unidad/(?P<pk_unidad>\d+)/$', views.DetalleUnidad, name='detalle_de_unidad'),	
-	
+	re_path(r'^colegio/(?P<pk_colegio>\d+)/(?P<pk_curso>\d+)/asignaturas/(?P<pk_asignatura>\d+)/unidad/(?P<pk_unidad>\d+)/lvls/(?P<pk_lvl>\d+)/$', views.DetalleNivel, name='detalle_nivel'),
 ]

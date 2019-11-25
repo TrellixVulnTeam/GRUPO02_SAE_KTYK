@@ -343,3 +343,8 @@ def DetalleUnidad(request,pk_colegio,pk_curso,pk_asignatura,pk_unidad):
 		lvlsunidad=lvlsunidad.filter(unidad=pk_unidad)
 
 	return render(request, "detalleunidad.html", {'lvlsunidad':lvlsunidad,'unidad':unidad,'pk_colegio':pk_colegio,'pk_curso':pk_curso,'pk_asignatura':pk_asignatura})
+
+def DetalleNivel(request,pk_colegio,pk_curso,pk_asignatura,pk_unidad,pk_lvl):
+
+
+    return render(request,"detallenivel.html")
