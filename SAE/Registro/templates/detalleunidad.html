@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
 <body>
 	{% ifequal unidad.lvls 0 %}
     
@@ -8,10 +11,21 @@
         {% csrf_token %}
     </form>
     {% else %}
-    		<li>Nombre  | ID</li>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     	{% for lvlsunidad in lvlsunidad %}
-    		<li>{{lvlsunidad.nombre}}|{{lvlsunidad.id}}<a href="lvls/{{lvlsunidad.id}} " class="card-link">Ir</a></li>
+        <div class="file">
+             <div class="col-sm-2">
+             <div class="card border-danger mb-2" style="max-width: 18rem;">
+                  <div class="card-header" style="color:#f44336">{{lvlsunidad.nombre}} </div>
+                 <div class="card-body text-danger">
+                  <h5 class="card-title">ID: {{lvlsunidad.id}}</h5>
+                 <p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="card-link">Ir</a></p>
+                </div>
+            </div>
+         </div>
     	{% endfor%}
-    {% endifequal %}
-    <a class="btn btn-primary btn-lg" href="quiz/createnivelacion" role="button">Crear prueba de nivelacion</a>
+    {% endifequal %}    
+
+    <a class="btn btn-outline-danger" href="quiz/createnivelacion" role="button">Crear prueba de nivelacion</a>
 </body>
+{% endblock %}
