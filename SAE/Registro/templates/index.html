@@ -1,12 +1,29 @@
 {% extends "base.html"%}
+<link rel="stylesheet" href="Registro.css">
 
 {% block content %}
-<h1>Bienvenido al S.A.E.</h1>
-<h2>Sistema de Apoyo al Estudiante</h2>
-<br/>
-<br/>
+<style>
+ body {
+  background-repeat: no-repeat;
+  background-size: 100%;
+} 
 
+</style>
+    {% load static %}
+
+<head>
+    <title>
+        <font color="black">
+            Bienvenido al Sistema de Apoyo Estudiantils (S.A.E)
+        </font>
+    </title>
+</head>
+<body background="{% static "images/fondo.jpg" %}" background-repeat: no-repeat;>
+</body>
+<h1 background-image="" ><font color="black"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bienvenido al Sistema de Apoyo Estudiantil</b></font></h1>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{% static 'images/Logo.png' %}">
+<br/>
 {% if not user.is_authenticated %}
-	<p>Para acceder al sistema debes ingresar tu usuario y clave o registrarte</p>
+    <p><font color="black"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usted no es un usuario registrado, favor ingrese al sistema o registrese</p></b></font>
 {% endif %}
 {% endblock %}
