@@ -85,7 +85,7 @@ class Quiz(models.Model):
 
     lvl = models.ForeignKey(Nivel,on_delete=models.CASCADE, blank=True, null=True)
 
-    prueba_nivelacion = models.BooleanField(blank=False,null = True, default=False )
+    prueba_nivelacion = models.NullBooleanField(default=False )
 
     description = models.TextField(
         verbose_name=_("Descripcion del quiz"),

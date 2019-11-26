@@ -173,8 +173,8 @@ class Unidad(models.Model):
 	nombre=models.CharField(max_length=10)
 	asignatura=models.ForeignKey(Asignatura,on_delete=models.CASCADE, blank=True, null=True)
 	lvls=models.PositiveIntegerField(default=0, blank=True, null=True)
-	pruebanivelacion=models.BooleanField(blank=False,null = True, default=False)
-	porcentajesasignados=models.BooleanField(blank=False,null = True, default=False)
+	pruebanivelacion=models.NullBooleanField(default=False)
+	porcentajesasignados=models.NullBooleanField(default=False)
 	unidades=models.Manager()
 
 class Nivel(models.Model):
