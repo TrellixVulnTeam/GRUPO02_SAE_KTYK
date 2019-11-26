@@ -4,11 +4,12 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
-from django.views.generic import DetailView, ListView, TemplateView, FormView
+from django.views.generic import DetailView, ListView, TemplateView, FormView,DeleteView
 from Registro.models import *
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
+from django.urls import reverse_lazy
 
 
 class QuizMarkerMixin(object):
@@ -132,6 +133,11 @@ class QuizMarkingDetail(QuizMarkerMixin, DetailView):
         return context
 
 
+class QuizDelete(DeleteView):
+    model = Quiz
+    template_name = './colegio_confirm_delete.html'
+    
+
 class QuizTake(FormView):
     form_class = QuestionForm
     template_name = 'question.html'
@@ -245,6 +251,57 @@ class QuizTake(FormView):
         puntaje.alumno_id=self.request.user.id
         puntaje.save()
 
+        if self.quiz.prueba_nivelacion:
+            print("prueba nivelacion")
+
+            lvls=Nivel.niveles.all()
+            lvls=lvls.filter(unidad=self.quiz.unidad)
+            if lvls.count() == 2:
+                lvl1=lvls.first()
+                puntajeobtenido = self.sitting.get_percent_correct
+                if puntajeobtenido>=0 and puntajeobtenido<=lvl1.porcentajeaprovacion:
+                    asignado = NivelAsignado()
+                    asignado.alumno.id=Alumno.alumno.get(user_id=self.request.user.id)
+                    asignado.unidad = self.quiz.unidad
+                    asignado.nivel_asignado = lvl1
+                    asignado.save()
+
+                else: 
+                    asignado = NivelAsignado()
+                    asignado.alumno=Alumno.alumno.get(user_id=self.request.user.id)
+                    asignado.unidad = self.quiz.unidad
+                    asignado.nivel_asignado = lvls.last()
+                    asignado.save()
+
+            if lvls.count() == 3:
+                lvl1=lvls.first()
+                lvl2=lvls[1]
+                lvl3=lvls.last()
+                puntajeobtenido = self.sitting.get_percent_correct
+
+                if puntajeobtenido>=0 and puntajeobtenido<=lvl1.porcentajeaprovacion:
+                    asignado = NivelAsignado()
+                    asignado.alumno=Alumno.alumno.get(user_id=self.request.user.id)
+                    asignado.unidad = self.quiz.unidad
+                    asignado.nivel_asignado = lvl1
+                    asignado.save()
+
+                if puntajeobtenido>=lvl2.porcentajeminimo and puntajeobtenido<=lvl2.porcentajeaprovacion:
+                    asignado = NivelAsignado()
+                    asignado.alumno=Alumno.alumno.get(id=self.request.user.id)
+                    asignado.unidad = self.quiz.unidad
+                    asignado.nivel_asignado = lvl2
+                    asignado.save()
+
+                if puntajeobtenido>lvl2.porcentajeaprovacion:
+                    asignado = NivelAsignado()
+                    asignado.alumno=Alumno.alumno.get(id=self.request.user.id)
+                    asignado.unidad = self.quiz.unidad
+                    asignado.nivel_asignado = lvl3
+                    asignado.save()
+
+
+
         self.sitting.mark_quiz_complete()
 
         if self.quiz.answers_at_end:
@@ -337,7 +394,7 @@ class QuizTake(FormView):
         max_score = len(q_order)
         percent = int(round((float(score) / max_score) * 100))
         session, session_possible = anon_session_score(self.request.session)
-        if score == 0:
+        if score is 0:
             score = "0"
 
         results = {

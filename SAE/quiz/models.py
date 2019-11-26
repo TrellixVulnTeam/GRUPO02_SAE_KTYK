@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
-from Registro.models import Asignatura
+from Registro.models import *
 from model_utils.managers import InheritanceManager
 
 
@@ -74,44 +74,47 @@ class Quiz(models.Model):
 
 
     title = models.CharField(
-        verbose_name=_("Title"),
+        verbose_name=_("Nombre del quiz"),
         max_length=60, blank=False)
 
     asignatura = models.ForeignKey(Asignatura,on_delete=models.CASCADE, blank=True, null=True)
 
-    nivel_quizz = models.IntegerField(choices=Lvl, blank=True, null=True)
+    nivel_quizz = models.IntegerField(choices=Lvl, blank=True, null=True, verbose_name="Nivel de dificultad del quiz")
+
+    unidad = models.ForeignKey(Unidad,on_delete=models.CASCADE, blank=True, null=True)
+
+    lvl = models.ForeignKey(Nivel,on_delete=models.CASCADE, blank=True, null=True)
+
+    prueba_nivelacion = models.BooleanField(blank=False,null = True, default=False )
 
     description = models.TextField(
-        verbose_name=_("Description"),
-        blank=True, help_text=_("a description of the quiz"))
+        verbose_name=_("Descripcion del quiz"),
+        blank=True, help_text=_("Una pequeña descripcion de que materias seran evaluadas"))
 
     #asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
 
     url = models.SlugField(
         max_length=60, blank=False,
-        help_text=_("a user friendly url"),
-        verbose_name=_("user friendly url"))
+        help_text=_("Url para usuarios"),
+        verbose_name=_("Url de facil acceso para el quiz"))
 
     category = models.ForeignKey(
         Category, null=True, blank=True,
-        verbose_name=_("Category"), on_delete=models.CASCADE)
+        verbose_name=_("Categoria"), on_delete=models.CASCADE)
 
     random_order = models.BooleanField(
         blank=False, default=False,
-        verbose_name=_("Random Order"),
-        help_text=_("Display the questions in "
-                    "a random order or as they "
-                    "are set?"))
+        verbose_name=_("Orden aleatorio"),
+        help_text=_("Mostrar las preguntas en orden aleatorio o como fueron creadas?"))
 
     max_questions = models.PositiveIntegerField(
-        blank=True, null=True, verbose_name=_("Max Questions"),
-        help_text=_("Number of questions to be answered on each attempt."))
+        blank=True, null=True, verbose_name=_("Numero maximo de preguntas"),
+        help_text=_("Numero de preguntas que seran respondidas en cada intento."))
 
     answers_at_end = models.BooleanField(
         blank=False, default=False,
-        help_text=_("Correct answer is NOT shown after question."
-                    " Answers displayed at the end."),
-        verbose_name=_("Answers at end"))
+        help_text=_("La respuesta correcta NO es mostrada despeus de la pregunta. La respuesta correcta se muesta al finalizar el quiz."),
+        verbose_name=_("Respuestas al final"))
 
     exam_paper = models.BooleanField(
         blank=False, default=False,
@@ -122,24 +125,22 @@ class Quiz(models.Model):
 
     single_attempt = models.BooleanField(
         blank=False, default=False,
-        help_text=_("If yes, only one attempt by"
-                    " a user will be permitted."
-                    " Non users cannot sit this exam."),
-        verbose_name=_("Single Attempt"))
+        help_text=_("Si esta tickeado, solo se prodra realizar UNA vez el quiz"),
+        verbose_name=_("Solo un intento"))
 
     pass_mark = models.SmallIntegerField(
         blank=True, default=0,
-        verbose_name=_("Pass Mark"),
-        help_text=_("Percentage required to pass exam."),
+        verbose_name=_("Puntaje para pasar"),
+        help_text=_("Porcentaje necesario para pasar el examen (1 a 100%)"),
         validators=[MaxValueValidator(100)])
 
     success_text = models.TextField(
-        blank=True, help_text=_("Displayed if user passes."),
-        verbose_name=_("Success Text"))
+        blank=True, help_text=_("Muestra un mensaje si el alumno aprueba el quiz."),
+        verbose_name=_("Mensaje de aprovacion"))
 
     fail_text = models.TextField(
-        verbose_name=_("Fail Text"),
-        blank=True, help_text=_("Displayed if user fails."))
+        verbose_name=_("Mensaje reprobatorio"),
+        blank=True, help_text=_("Muestra un mensaje si el alumno no aprueba el quiz."))
 
     draft = models.BooleanField(
         blank=True, default=False,
@@ -387,7 +388,7 @@ class Sitting(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE)
 
-    quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"), on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"), on_delete=models.CASCADE,blank=True, null=True)
 
     question_order = models.CharField(
         max_length=1024,

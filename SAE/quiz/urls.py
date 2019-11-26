@@ -3,7 +3,7 @@ from django.urls import re_path as url
 
 from .views import QuizListView, CategoriesListView, \
     ViewQuizListByCategory, QuizUserProgressView, QuizMarkingList, \
-    QuizMarkingDetail, QuizDetailView, QuizTake
+    QuizMarkingDetail, QuizDetailView, QuizTake,QuizDelete
 
 urlpatterns = [
 
@@ -39,4 +39,8 @@ urlpatterns = [
     url(r'^(?P<quiz_name>[\w-]+)/take/$',
         view=QuizTake.as_view(),
         name='quiz_question'),
+
+    url(r'^(?P<pk>[\d.]+)/delete/$',
+        view=QuizDelete.as_view(success_url='/quizz7'),
+        name='quiz_delete'),
 ]
