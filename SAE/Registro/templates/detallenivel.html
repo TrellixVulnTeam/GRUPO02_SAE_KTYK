@@ -1,10 +1,48 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-Esta en el nivel
+{% ifnotequal user.first_name 2%}
 <div class="row mt-3">
-<p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="btn btn-outline-danger">Ver Quizz disponibles</a></p>
-<p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="btn btn-outline-danger">Ver materia disponible</a></p>
+<p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="btn btn-outline-danger">Crear Quizz para el nivel</a></p>
+&nbsp;&nbsp;
+<p class="card-text"><a href="unidad/{{unidadesasignaturas.id}} " class="btn btn-outline-danger">Agregar materia</a></p>
 </div>
+{% endifnotequal %}
+{% if quiz %}
+		<table class="table table-bordered table-striped">
+
+		  <thead>
+			<tr>
+			  <th>Nombre Quiz</th>
+			  <th>Categoria</th>
+			  <th>Examen</th>
+			  <th>Solo un intento</th>
+			  <th></th>
+			</tr>
+		  </thead>
+
+		  <tbody>
+
+        {% for quiz in quiz %}
+
+  			<tr>
+			  <td>{{ quiz.title }}</td>
+			  <td>{{ quiz.category }}</td>
+			  <td>{{ quiz.exam_paper }}</td>
+			  <td>{{ quiz.single_attempt }}</td>
+			  <td>
+				<a href="{% url 'quiz_start_page' slug=quiz.url %}">
+				  {"View details"}
+				</a>
+			</tr>
+
+        {% endfor %}
+		  </tbody>
+
+		</table>
+
+	{% else %}
+        <p>No existen quizzes disponibles</p>
+    {% endif %}
 
 {% endblock %}
