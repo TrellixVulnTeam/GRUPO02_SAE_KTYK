@@ -14,7 +14,6 @@
 		  <thead>
 			<tr>
 			  <th>Nombre Quiz</th>
-			  <th>Categoria</th>
 			  <th>Examen</th>
 			  <th>Solo un intento</th>
 			  <th></th>
@@ -24,17 +23,18 @@
 		  <tbody>
 
         {% for quiz in quiz %}
+        	{% ifequal quiz.lvl.id lvl2.id%}
 
   			<tr>
 			  <td>{{ quiz.title }}</td>
-			  <td>{{ quiz.category }}</td>
 			  <td>{{ quiz.exam_paper }}</td>
 			  <td>{{ quiz.single_attempt }}</td>
 			  <td>
 				<a href="{% url 'quiz_start_page' slug=quiz.url %}">
-				  {"View details"}
+				  Ir al quizz
 				</a>
 			</tr>
+			{% endifequal %}
 
         {% endfor %}
 		  </tbody>

@@ -167,14 +167,31 @@ class Puntaje(models.Model):
 	codigo_actividad = models.PositiveIntegerField()
 	alumno = models.ForeignKey(Alumno,on_delete=models.CASCADE, blank=True, null=True)
 	acomulado = models.CharField(max_length=3)
+	puntajes=models.Manager()
 
 class Unidad(models.Model):
 	nombre=models.CharField(max_length=10)
 	asignatura=models.ForeignKey(Asignatura,on_delete=models.CASCADE, blank=True, null=True)
 	lvls=models.PositiveIntegerField(default=0, blank=True, null=True)
+	pruebanivelacion=models.BooleanField(blank=False,null = True, default=False)
+	porcentajesasignados=models.BooleanField(blank=False,null = True, default=False)
 	unidades=models.Manager()
 
 class Nivel(models.Model):
 	nombre=models.CharField(max_length=10)
 	unidad=models.ForeignKey(Unidad,on_delete=models.CASCADE, blank=True, null=True)
+	porcentajeminimo=models.PositiveIntegerField(blank=False,null = True)
+	porcentajeaprovacion= models.PositiveIntegerField(blank=False,null = True)
 	niveles=models.Manager()
+
+class RindePrueba(models.Model):
+	alumno = models.ForeignKey(Alumno,on_delete=models.CASCADE, blank=True, null=True)
+	quiz = models.PositiveIntegerField(blank=False,null = True)
+	rindepruebas=models.Manager()
+
+
+class NivelAsignado(models.Model):
+	alumno = models.ForeignKey(Alumno,on_delete=models.CASCADE, blank=True, null=True)
+	unidad = models.ForeignKey(Unidad,on_delete=models.CASCADE, blank=True, null=True)
+	nivel_asignado = models.ForeignKey(Nivel,on_delete=models.CASCADE, blank=True, null=True)
+	niveles_asignados=models.Manager()

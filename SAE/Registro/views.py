@@ -314,6 +314,8 @@ def DetalleAsignatura(request,pk_colegio,pk_curso,pk_asignatura):
 		unidadesasignatura=Unidad.unidades.all()
 		unidadesasignatura=unidadesasignatura.filter(asignatura=pk_asignatura)
 
+
+
 		
 		
 
@@ -325,9 +327,41 @@ def DetalleUnidad(request,pk_colegio,pk_curso,pk_asignatura,pk_unidad):
 
 	if unidad.lvls == 0:
 		lvlsunidad=None
+		pruebanivelacion=None
+		lvlasignado=None
+		rendido=None
+		cantidad=None
 	else:
 		lvlsunidad=Nivel.niveles.all()
 		lvlsunidad=lvlsunidad.filter(unidad=pk_unidad)
+		cantidad=lvlsunidad.count()
+		try:
+			quiz=Quiz.quizz.get(unidad=pk_unidad)
+			quiz=quiz.id
+			try:
+				rendido=Puntaje.puntajes.get(codigo_actividad=quiz,alumno=request.user.id)
+			except:
+				rendido=None
+		except:
+			rendido=None
+		
+		if rendido == None:
+			rendido=False
+		else:
+			rendido=True
+
+		try:
+			alum=Alumno.alumno.get(user=request.user.id)
+		except:
+			profe=Profesor.profesores.get(user=request.user.id)
+		try:
+			lvlasignado= NivelAsignado.niveles_asignados.get(unidad=pk_unidad,alumno=alum)
+		except:
+			lvlasignado= None
+		try:
+			pruebanivelacion=Quiz.quizz.get(unidad=pk_unidad,prueba_nivelacion=True)
+		except:
+			pruebanivelacion=None
 
 	if request.POST.get('niveles'):
 		niveles = int(request.POST.get('niveles'))
@@ -342,9 +376,44 @@ def DetalleUnidad(request,pk_colegio,pk_curso,pk_asignatura,pk_unidad):
 		lvlsunidad=Nivel.niveles.all()
 		lvlsunidad=lvlsunidad.filter(unidad=pk_unidad)
 
-	return render(request, "detalleunidad.html", {'lvlsunidad':lvlsunidad,'unidad':unidad,'pk_colegio':pk_colegio,'pk_curso':pk_curso,'pk_asignatura':pk_asignatura})
+	if request.POST.get('ap1'):
+		unidad.porcentajesasignados=1;
+		unidad.save()
+		if lvlsunidad.count() == 2:
+			lvl1=lvlsunidad.first()
+			lvl1.porcentajeaprovacion=int(request.POST.get('ap1'))
+			lvl1.porcentajeminimo=0
+			lvl1.save()
+			lvl2=lvlsunidad.last()
+			lvl2.porcentajeaprovacion=100
+			lvl2.porcentajeminimo=int(request.POST.get('ap1'))+1
+			lvl2.save()
+
+		if lvlsunidad.count() == 3:
+			lvl1=lvlsunidad.first()
+			lvl1.porcentajeaprovacion=int(request.POST.get('ap1'))
+			lvl1.porcentajeminimo=0
+			lvl1.save()
+			lvl2=lvlsunidad[2]
+			lvl2.porcentajeaprovacion=int(request.POST.get('ap2'))
+			lvl2.porcentajeminimo=int(request.POST.get('ap1'))+1
+			lvl2.save()
+			lvl3=lvlsunidad.last()
+			lvl3.porcentajeaprovacion=100
+			lvl3.porcentajeminimo=int(request.POST.get('ap2'))+1
+			lvl3.save()
+
+	return render(request, "detalleunidad.html", {'pruebanivelacion':pruebanivelacion,'lvlasignado':lvlasignado,'rendido':rendido,'cantidad':cantidad,'lvlsunidad':lvlsunidad,'unidad':unidad,'pk_colegio':pk_colegio,'pk_curso':pk_curso,'pk_asignatura':pk_asignatura})
 
 def DetalleNivel(request,pk_colegio,pk_curso,pk_asignatura,pk_unidad,pk_lvl):
 
+	lvl2= pk_lvl
+	try:
+		quiz2=Quiz.quizz.all()
+		quiz2.filter(lvl_id=lvl2)
+	except:
+		quiz2=None
+	
 
-    return render(request,"detallenivel.html")
+
+	return render(request,"detallenivel.html",{'quiz':quiz2,'pk_lvl':pk_lvl,'lvl2':lvl2})
