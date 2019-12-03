@@ -2,3 +2,4 @@ django
 gunicorn
 djangorestframework
 django-heroku
+django-model-utils
